@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" class="checkbox-inline" value="1"></th>
+                            <th>Sender</th>
+                            <th>Subject</th>
+                        </tr>
+                    </thead>
+                    {% if emails %}
+                    <tbody>
+                    {% for em in emails %}
+                        <tr>
+                            <td><input type="checkbox" class="checkbox-inline" value="1"></td>
+                            <td>
+                                <a href="mailto:{{ em.get('From')[1] }}">
+                                    {% if em.get('From')[0] %}
+                                        {{ em.get('From')[0] }}
+                                    {% else %}
+                                        {{ em.get('From')[1] }}
+                                    {% endif %}
+                                </a>
+                            </td>
+                            <td><a href="#">{{ em.get('Subject') }}</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <ul class="pager">
+                                  <li class="previous disabled"><a href="#">&larr; Older</a></li>
+                                  <li class="next"><a href="#">Newer &rarr;</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                    {% else %}
+                    <tbody>
+                        <tr>
+                            <td colspan="3">
+                                <p class="alert-danger">
+                                    <strong>Empty! </strong>
+                                    No Mail in you inbox.
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+</div>
+{% endblock content %}
